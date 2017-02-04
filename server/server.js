@@ -19,7 +19,11 @@ var lions = [];
 var id = 0;
 
 var updateId = function(req, res, next) {
-  // fill this out. this is the route middleware for the ids
+  if (!req.body.id) {
+    id++;
+    req.body.id = id + '';
+  }
+  next();
 };
 
 app.use(morgan('dev'))
