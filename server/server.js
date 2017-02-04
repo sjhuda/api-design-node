@@ -26,6 +26,11 @@ app.get('/lions', function(req, res) {
     res.json(lions);
 });
 
+app.get('/lions/:id', function(req, res) {
+  var lion = _.find(lions, {id: req.params.id});
+  res.json(lion || {});
+});
+
 app.post('/lions', function(req, res) {
   var lion = req.body;
   id++;
