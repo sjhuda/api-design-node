@@ -29,8 +29,14 @@ app.use(bodyParser.json());
 
 
 app.param('id', function(req, res, next, id) {
-  // fill this out to find the lion based off the id
-  // and attach it to req.lion. Rember to call next()
+  var lion = _.find(lions, {id: id});
+
+  if (lion) {
+    req.lion = lion;
+    next();
+  } else {
+    res.send();
+  }
 });
 
 app.get('/lions', function(req, res){
@@ -38,7 +44,7 @@ app.get('/lions', function(req, res){
 });
 
 app.get('/lions/:id', function(req, res){
-  // use req.lion
+  var lion = req.lion;
   res.json(lion || {});
 });
 
