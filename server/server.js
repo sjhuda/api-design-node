@@ -22,6 +22,18 @@ var lions = [];
 var id = 0;
 
 // TODO: make the REST routes to perform CRUD on lions
+app.get('/lions', function(req, res) {
+    res.json(lions);
+});
+
+app.post('/lions', function(req, res) {
+  var lion = req.body;
+  id++;
+  lion.id = id + '';
+
+  lions.push(lion);
+  res.json(lion);
+});
 
 app.listen(3000);
 console.log('on port 3000');
