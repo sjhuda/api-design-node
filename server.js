@@ -11,6 +11,10 @@ app.get('/', function(req, res) {
   })
 });
 
+app.get('/data', function(req, res) {
+  res.json(jsonData);
+});
+
 var port = 3000;
 app.listen(port, function() {
   console.log('Listening on http://localhost:3000');
