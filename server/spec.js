@@ -61,4 +61,28 @@ describe('[LIONS]', function(){
          })
       })
   });
+
+  it('should update a lion', function(done) {
+    request(app)
+      .post('/lions')
+      .send({
+        name: 'test lion',
+        age: 100,
+        pride: 'test lion',
+        gender: 'female'
+      })
+      .set('Accept', 'application/json')
+      .end(function(err, resp) {
+        var lion = resp.body;
+        request(app)
+         .put('/lions/' + lion.id)
+         .send({
+           name: 'new name'
+         })
+         .end(function(err, resp) {
+           expect(resp.body.name).to.equal('new name');
+           done();
+         })
+      })
+  });
 });
