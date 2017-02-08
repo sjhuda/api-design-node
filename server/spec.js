@@ -7,7 +7,6 @@ var expect = require('chai').expect;
 // to run the test type mocha server/specs.js
 
 describe('[LIONS]', function(){
-
   it('should get all lions', function(done) {
     request(app)
       .get('/lions')
@@ -19,6 +18,28 @@ describe('[LIONS]', function(){
         done();
       })
   });
+
+  it('should create a lion', function(done) {
+    var lion = {
+        name: 'Mufasa',
+        age: 100,
+        pride: 'Evil Lion',
+        gender: 'Male'
+    }
+
+    request(app)
+      .post('/lions')
+      .send(lion)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .end(function(err, resp) {
+        var mufasa = resp.body;
+        expect(mufasa).to.be.an('object');
+        expect(mufasa.name).to.be.eql('Mufasa');
+        // expect(resp.body).to.eql(lion);
+        done();
+      })
+  });
+
 });
-
-
