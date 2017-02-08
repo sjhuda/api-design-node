@@ -26,7 +26,6 @@ describe('[LIONS]', function(){
         pride: 'Evil Lion',
         gender: 'Male'
     }
-
     request(app)
       .post('/lions')
       .send(lion)
@@ -42,4 +41,24 @@ describe('[LIONS]', function(){
       })
   });
 
+  it('should delete a lion', function(done) {
+    request(app)
+      .post('/lions')
+      .send({
+        name: 'test lion',
+        age: 100,
+        pride: 'test lion',
+        gender: 'female'
+      })
+      .set('Accept', 'application/json')
+      .end(function(err, resp) {
+        var lion = resp.body;
+        request(app)
+         .delete('/lions/' + lion.id)
+         .end(function(err, resp) {
+           expect(resp.body).to.eql(lion);
+           done();
+         })
+      })
+  });
 });
